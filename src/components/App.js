@@ -91,6 +91,7 @@ class App extends Component {
       this.state.dvideo.methods.uploadVideo(result[0].hash, title).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })
+      // window.location.reload()
     })
   }
 
