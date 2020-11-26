@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import DVideo from '../abis/DVideo.json'
 import Navbar from './Navbar'
 import Main from './Main'
+import Comments from './Comments'
 import Web3 from 'web3';
 import './App.css';
+import { DatePicker, message } from 'antd';
+import 'antd/dist/antd.css';
 
 //Declare IPFS
 const ipfsClient = require('ipfs-http-client')
@@ -134,6 +137,7 @@ class App extends Component {
               currentTitle={this.state.currentTitle}
             />
         }
+        <Comments />
       </div>
     );
   }
