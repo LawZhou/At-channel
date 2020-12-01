@@ -1,46 +1,53 @@
 import React, { Component } from 'react';
-import dvideo from '../dvideo.png'
-import { Layout, Menu, Breadcrumb } from 'antd';
+import channel_logo from '../@Channel.png'
+import { Layout, Menu, Typography, Space } from 'antd';
+
+import Identicon from 'identicon.js';
 
 
 const { Header, Content, Footer } = Layout;
+const { Title, Paragraph, Text, Link } = Typography;
 
-class Navbar extends Component {
-  render() {
-    return (
-      <Layout className="layout">
-    <Header>
-      {/* <div className="logo" />  */}
-      <div className="logo">
-      </div>
+function Navbar(props) {
+  return (
+    <section>
+      <Menu theme="dark" mode="horizontal" style={{height: 30}}>
+      <Space align="start">
+        <img
+          style={{width: 60, height: 60, borderRadius:'50%' }}
+          src={channel_logo}
+          // src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+          alt="@Channel"
+        />
+          <span style={{ fontSize:'xx-large', fontWeight: 'bold', color: 'white'}}>
+            @Channel
+         </span>
+
+      </Space>
       
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-      <a
-          // className="navbar-brand col-sm-3 col-md-2 mr-0"
-          href="http://www.dappuniversity.com/bootcamp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={dvideo} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp;DVide0
-        </a>
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
+        <Space style={{float:'right'}}>
+            <span style={{ fontSize:'medium', color: 'white'}}>
+              <span id="account">{props.account}</span>
+            </span>
+            { props.account
+              ? <img
+                className='ml-2'
+                style={{width: 30, height: 30, borderRadius:'50%' }}
+                src={`data:image/png;base64,${new Identicon(props.account, 30).toString()}`}
+                alt=""
+              />
+              : <span></span>
+            }
+        </Space>
       </Menu>
-    </Header>
-  </Layout>
-    );
-  }
-  
+  </section>
+  );
 }
-
-
-
 
 // class Navbar extends Component {
 
 //   render() {
+//     // console.log(this.props)
 //     return (
 //       <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow text-monospace">
 //         <a
@@ -52,23 +59,23 @@ class Navbar extends Component {
 //           <img src={dvideo} width="30" height="30" className="d-inline-block align-top" alt="" />
 //           &nbsp;DVide0
 //         </a>
-//         <ul className="navbar-nav px-3">
-//           <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-//             <small className="text-secondary">
-//               <small id="account">{this.props.account}</small>
-//             </small>
-//             { this.props.account
-//               ? <img
-//                 className='ml-2'
-//                 width='30'
-//                 height='30'
-//                 src={`data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`}
-//                 alt=""
-//               />
-//               : <span></span>
-//             }
-//           </li>
-//         </ul>
+        // <ul className="navbar-nav px-3">
+        //   <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
+        //     <small className="text-secondary">
+        //       <small id="account">{this.props.account}</small>
+        //     </small>
+        //     { this.props.account
+        //       ? <img
+        //         className='ml-2'
+        //         width='30'
+        //         height='30'
+        //         src={`data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`}
+        //         alt=""
+        //       />
+        //       : <span></span>
+        //     }
+        //   </li>
+        // </ul>
 //       </nav>
 //     );
 //   }
