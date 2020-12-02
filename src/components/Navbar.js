@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import channel_logo from '../@Channel.png'
 import { Layout, Menu, Typography, Space, PageHeader, Avatar, Button } from 'antd';
-import './App.less'
+import './App.css'
 import Identicon from 'identicon.js';
 
 
@@ -15,8 +15,8 @@ function Navbar(props) {
       avatar={{src: channel_logo, size: 80}}
       style={{ backgroundColor:'#F4F5F7' }}
       extra={[
-              <span id="account">{props.account}</span>,
-            <span>
+              <span id="account" key='1'>{props.account}</span>,
+            <span key='2'>
               { props.account? 
               <img
                 className='ml-2'

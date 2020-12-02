@@ -6,7 +6,7 @@ import DComment from '../abis/DComment.json'
 import Identicon from 'identicon.js';
 
 import Web3 from 'web3';
-import './App.less';
+import './App.css';
 import 'antd/dist/antd.css';
 
   const { TextArea } = Input;
@@ -97,12 +97,10 @@ import 'antd/dist/antd.css';
             author: result[3],
             content: result.text,
           }
-          console.log(comment)
           this.setState({
             comments: [...this.state.comments, comment]
           })
         }
-        console.log(this.state)
       } else {
         window.alert('DVideo contract not deployed to detected network.')
       }
@@ -161,7 +159,6 @@ import 'antd/dist/antd.css';
       };
     
       render() {
-        console.log(this.state)
         const { comments, submitting, value } = this.state;
       return (
         <div>

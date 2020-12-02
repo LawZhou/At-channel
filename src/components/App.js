@@ -5,7 +5,7 @@ import VideoPanel from './VideoPanel'
 import VideoList from './VideoList'
 import Comments from './Comments'
 import Web3 from 'web3';
-import './App.less';
+import './App.css';
 import { DatePicker, message } from 'antd';
 import { Layout, Menu, Breadcrumb, Button } from 'antd';
 
@@ -70,8 +70,14 @@ class App extends Component {
   }
 
   captureFile = event => {
-    event.preventDefault()
-    const file = event.target.files[0]
+    // console.log(event)
+    // event.preventDefault()
+    // console.log(event.target)
+    // const file = event.target.files[0]
+    // console.log(file)
+    console.log(event)
+    const file = event
+    console.log(file)
     const reader = new window.FileReader()
     reader.readAsArrayBuffer(file)
 
