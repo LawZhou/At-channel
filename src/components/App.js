@@ -64,6 +64,7 @@ class App extends Component {
         currentNumRate: parseInt(latest.rateNumber),
       })
       // console.log(this.state)
+      console.log('loading block chain data')
       this.setState({ loading: false})
     } else {
       window.alert('DVideo contract not deployed to detected network.')
@@ -110,6 +111,8 @@ class App extends Component {
 
       this.setState({ loading: true })
       this.state.dvideo.methods.uploadVideo(result[0].hash, title).send({ from: this.state.account }).on('transactionHash', (hash) => {
+        this.resetState()
+        this.loadBlockchainData()
         this.setState({ loading: false })
       })
     })
@@ -125,6 +128,21 @@ class App extends Component {
       currentTotalRate: rateTotal,
       currentNumRate: rateNumber
     })
+  }
+
+  resetState = () => {
+    this.setState({
+      buffer: null,
+      account: '',
+      dvideo: null,
+      videos: [],
+      loading: true,
+      currentVideoId: -1,
+      currentHash: null,
+      currentTitle: null,
+      currentTotalRate: 0,
+      currentNumRate: 0,
+    }) 
   }
 
   constructor(props) {

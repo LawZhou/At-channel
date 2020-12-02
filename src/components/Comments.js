@@ -58,6 +58,13 @@ import 'antd/dist/antd.css';
       this.postComment = this.postComment.bind(this)
     }
 
+    resetState = () => {
+      this.setState({
+        comments: [],
+        submitting: false,
+        value: '',
+      })
+    }
     componentDidUpdate(prevProps){
       if(this.props.account !== prevProps.account){
         this.setState({
@@ -66,19 +73,6 @@ import 'antd/dist/antd.css';
         })
       }
     }
-
-    // async loadWeb3() {
-    //   if (window.ethereum) {
-    //     window.web3 = new Web3(window.ethereum)
-    //     await window.ethereum.enable()
-    //   }
-    //   else if (window.web3) {
-    //     window.web3 = new Web3(window.web3.currentProvider)
-    //   }
-    //   else {
-    //     window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-    //   }
-    // }
   
     async loadBlockchainData() {
       const web3 = window.web3
@@ -138,6 +132,8 @@ import 'antd/dist/antd.css';
                 submitting: false,
                 value: '',
               });
+              this.resetState()
+              this.loadBlockchainData()
           })
         })
       }
