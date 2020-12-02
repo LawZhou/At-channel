@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import channel_logo from '../@Channel.png'
-import { Layout, Menu, Typography, Space } from 'antd';
-
+import { Layout, Menu, Typography, Space, PageHeader, Avatar, Button } from 'antd';
+import './App.less'
 import Identicon from 'identicon.js';
 
 
@@ -10,22 +10,33 @@ const { Title, Paragraph, Text, Link } = Typography;
 
 function Navbar(props) {
   return (
-    <section>
-      <Menu theme="dark" mode="horizontal" style={{height: 30}}>
-      <Space align="start">
-        <img
-          style={{width: 60, height: 60, borderRadius:'50%' }}
-          src={channel_logo}
-          // src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-          alt="@Channel"
-        />
-          <span style={{ fontSize:'xx-large', fontWeight: 'bold', color: 'white'}}>
+      <PageHeader 
+      title="@Channel" 
+      avatar={{src: channel_logo, size: 80}}
+      style={{ backgroundColor:'#F4F5F7' }}
+      extra={[
+              <span id="account">{props.account}</span>,
+            <span>
+              { props.account? 
+              <img
+                className='ml-2'
+                style={{width: 30, height: 30, borderRadius:'50%' }}
+                src={`data:image/png;base64,${new Identicon(props.account, 30).toString()}`}
+                alt=""
+              />
+              : <span></span>
+            }
+            </span>
+            
+      ]}
+      >
+        
+          {/* <span style={{ fontSize:'xx-large', fontWeight: 'bold', color: 'white'}}>
             @Channel
-         </span>
+         </span> */}
 
-      </Space>
       
-        <Space style={{float:'right'}}>
+      {/* <Space style={{ float:'right'}}>
             <span style={{ fontSize:'medium', color: 'white'}}>
               <span id="account">{props.account}</span>
             </span>
@@ -38,9 +49,9 @@ function Navbar(props) {
               />
               : <span></span>
             }
-        </Space>
-      </Menu>
-  </section>
+        </Space> */}
+        
+      </PageHeader>
   );
 }
 

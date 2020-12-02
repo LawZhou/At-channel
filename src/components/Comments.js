@@ -6,7 +6,7 @@ import DComment from '../abis/DComment.json'
 import Identicon from 'identicon.js';
 
 import Web3 from 'web3';
-import './App.css';
+import './App.less';
 import 'antd/dist/antd.css';
 
   const { TextArea } = Input;
