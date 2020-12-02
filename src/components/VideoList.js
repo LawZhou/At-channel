@@ -23,13 +23,6 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Title, Paragraph, Text, Link } = Typography;
 
-const normFile = e => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
 
 function VideoList(props) {
   const [videoTitle, setVideoTitle] = useState(null);
@@ -38,31 +31,9 @@ function VideoList(props) {
       <div>
         
           {/* Sider menu */}
-
-            {/* Upload video form */}
-
-            {/* <form onSubmit={(event) => {
-              event.preventDefault()
-              const title = videoTitle.value
-              props.uploadVideo(title)
-            }} >
-              &nbsp;
-              <input type='file' accept=".mp4, .mkv .ogg .wmv" onChange={props.captureFile} style={{ width: '250px' }} />
-                <div className="form-group mr-sm-2">
-                  <input
-                    id="videoTitle"
-                    type="text"
-                    ref={(input) => { setVideoTitle(input) }}
-                    className="form-control-sm"
-                    placeholder="Title..."
-                    required />
-                </div>
-              <button type="submit" className="btn btn-danger btn-block btn-sm">Upload!</button>
-              &nbsp;
-            </form> */}
             <Tabs 
             defaultActiveKey="2"
-            style={{ backgroundColor:'#F4F5F7', maxHeight:'700px' }}
+            style={{ backgroundColor:'#F4F5F7', maxHeight:'100%' }}
           >
             <TabPane tab="Upload Video" key='1'>
                 {/* <Uploader 
@@ -76,16 +47,6 @@ function VideoList(props) {
               props.uploadVideo(title)
             }} >
               &nbsp;
-              {/* <input type='file' accept=".mp4, .mkv .ogg .wmv" onChange={props.captureFile} style={{ width: '250px' }} />
-                <div className="form-group mr-sm-2">
-                  <input
-                    id="videoTitle"
-                    type="text"
-                    ref={(input) => { setVideoTitle(input) }}
-                    className="form-control-sm"
-                    placeholder="Title..."
-                    required />
-                </div> */}
                 <Uploader 
                     uploadVideo={props.uploadVideo}
                     captureFile={props.captureFile}>
@@ -93,7 +54,6 @@ function VideoList(props) {
                 </Uploader>
                 &nbsp;
                 &nbsp;
-
                 <div className="form-group mr-sm-2">
                   <input
                     id="videoTitle"
@@ -103,12 +63,10 @@ function VideoList(props) {
                     placeholder="Title..."
                     required />
                 </div> 
-
               <Button htmlType="submit" type="primary">Upload!</Button>
               &nbsp;
             </Form>
             </TabPane>
-
             <TabPane tab="Videos" key='2' style={{overflow: 'auto', maxHeight:"700px"}}>
                 {/* Video List */}
                 { props.videos.map((video, key) => {
@@ -118,7 +76,8 @@ function VideoList(props) {
                         <small className="text-white"><b>{video.title}</b></small>
                     </div>
                     <div>
-                        <p onClick={() => props.changeVideo(video.hash, video.title)}>
+                        <p onClick={() => props.changeVideo(video.hash, video.title, video.rateTotal, 
+                            video.rateNumber, video.id)}>
                         <video
                             src={`https://ipfs.infura.io/ipfs/${video.hash}`}
                             style={{ width: '150px' }}

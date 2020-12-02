@@ -18,6 +18,7 @@ import 'antd/dist/antd.css';
       itemLayout="horizontal"
       renderItem={props => 
       <Comment
+        style={{borderBottom: '1px solid #f0f0f0'}}
         avatar={
             <Avatar
               src={props.author? `data:image/png;base64,${new Identicon(props.author, 30).toString()}`: ""}
@@ -94,7 +95,7 @@ import 'antd/dist/antd.css';
         for (var i=commentsCount; i>=1; i--) {
           const result = await dcomment.methods.comments(i).call()
           const comment = {
-            author: result[3],
+            author: result.poster,
             content: result.text,
           }
           this.setState({
@@ -133,22 +134,11 @@ import 'antd/dist/antd.css';
 
           this.state.dcomment.methods.postComment(result[0].hash, this.state.value)
             .send({ from: this.state.account }).on('transactionHash', (hash) => {
-
               this.setState({
                 submitting: false,
                 value: '',
-                // comments: [
-                //   {
-                //     author: 'Han Solo',
-                //     avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-                //     content: <p>{this.state.value}</p>,
-                //     // datetime: moment().fromNow(),
-                //   },
-                //   ...this.state.comments,
-                // ],
               });
           })
-          // window.location.reload()
         })
       }
     
@@ -161,8 +151,12 @@ import 'antd/dist/antd.css';
       render() {
         const { comments, submitting, value } = this.state;
       return (
-        <div>
-        <Comment
+        <div className="container-fluid text-monospace">
+        <div className="row">
+          {/* Video */}
+            <div className="col-sm-12">
+            <Comment
+
           avatar={
             <Avatar
               src={this.props.account? `data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`: ""}
@@ -179,6 +173,10 @@ import 'antd/dist/antd.css';
           }
         />
         {this.props.account && comments.length > 0 && <CommentList comments={comments} />}
+
+            </div>
+        
+        </div>
     </div>
       );
         }

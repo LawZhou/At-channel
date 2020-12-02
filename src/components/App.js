@@ -17,10 +17,6 @@ const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' 
 
 class App extends Component {
 
-  // componentDidMount() {
-  //   this.loadWeb3()
-  //   this.loadBlockchainData()
-  // }
 
   async loadWeb3() {
     if (window.ethereum) {
@@ -48,7 +44,7 @@ class App extends Component {
       this.setState({ dvideo })
       const videosCount = await dvideo.methods.videoCount().call()
       this.setState({ videosCount })
-      // console.log(this.state)
+
       // Load videos, sort by newest
       for (var i=videosCount; i>=1; i--) {
         const video = await dvideo.methods.videos(i).call()
@@ -56,13 +52,18 @@ class App extends Component {
           videos: [...this.state.videos, video]
         })
       }
+      
 
-      //Set latest video with title to view as default 
+      // Set latest video with title to view as default 
       const latest = await dvideo.methods.videos(videosCount).call()
       this.setState({
         currentHash: latest.hash,
-        currentTitle: latest.title
+        currentTitle: latest.title,
+        currentVideoId: parseInt(latest.id),
+        currentTotalRate: parseInt(latest.rateTotal),
+        currentNumRate: parseInt(latest.rateNumber),
       })
+      // console.log(this.state)
       this.setState({ loading: false})
     } else {
       window.alert('DVideo contract not deployed to detected network.')
@@ -70,14 +71,7 @@ class App extends Component {
   }
 
   captureFile = event => {
-    // console.log(event)
-    // event.preventDefault()
-    // console.log(event.target)
-    // const file = event.target.files[0]
-    // console.log(file)
-    console.log(event)
     const file = event
-    console.log(file)
     const reader = new window.FileReader()
     reader.readAsArrayBuffer(file)
 
@@ -87,6 +81,21 @@ class App extends Component {
     }
   }
 
+  updateRate = rate => {
+    console.log(rate)
+    console.log(this.state.currentNumRate)
+    console.log(this.state.currentTotalRate)
+    const numRate = this.state.currentNumRate+1
+    const totalRate = this.state.currentTotalRate+rate
+    this.state.dvideo.methods.updateRate(this.state.currentVideoId, totalRate, numRate, this.state.currentTitle)
+      .send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.setState({
+        currentNumRate: numRate,
+        currentTotalRate: totalRate,
+      })
+    })
+    
+  }
 
   uploadVideo = title => {
     console.log("Submitting file to IPFS...")
@@ -103,13 +112,19 @@ class App extends Component {
       this.state.dvideo.methods.uploadVideo(result[0].hash, title).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })
-      // window.location.reload()
     })
   }
 
-  changeVideo = (hash, title) => {
+  changeVideo = (hash, title, rateTotal, rateNumber, videoId) => {
     this.setState({'currentHash': hash});
     this.setState({'currentTitle': title});
+    this.setState({
+      currentVideoId: videoId,
+      currentHash: hash,
+      currentTitle: title,
+      currentTotalRate: rateTotal,
+      currentNumRate: rateNumber
+    })
   }
 
   constructor(props) {
@@ -120,23 +135,24 @@ class App extends Component {
       dvideo: null,
       videos: [],
       loading: true,
+      currentVideoId: -1,
       currentHash: null,
-      currentTitle: null
+      currentTitle: null,
+      currentTotalRate: 0,
+      currentNumRate: 0,
     }
 
     this.uploadVideo = this.uploadVideo.bind(this)
     this.captureFile = this.captureFile.bind(this)
     this.changeVideo = this.changeVideo.bind(this)
+    this.updateRate = this.updateRate.bind(this)
     this.loadWeb3()
     this.loadBlockchainData()
   }
   
   render() {
-    // console.log(this.state)
+    console.log(this.state)
     return (
-    //   <div className="App">
-    // <Button type="primary">Button</Button>
-    // </div>
       <Layout>
         <Layout>
             <Navbar 
@@ -153,10 +169,17 @@ class App extends Component {
                     uploadVideo={this.uploadVideo}
                     captureFile={this.captureFile}
                     changeVideo={this.changeVideo}
+                    updateRate={this.updateRate}
                     currentHash={this.state.currentHash}
                     currentTitle={this.state.currentTitle}
+                    currentTotalRate={this.state.currentTotalRate}
+                    currentNumRate={this.state.currentNumRate}
                   />
               }
+              <Comments 
+                account = {this.state.account}
+                ipfs = {ipfs}
+              />
             </Content>
             <Sider align='center' width={'16%'} style={{backgroundColor:'#F4F5F7'}} >
               { this.state.loading
@@ -172,14 +195,6 @@ class App extends Component {
               }
           </Sider>
         </Layout>
-        
-        <Footer>
-          <Comments 
-              account = {this.state.account}
-              ipfs = {ipfs}
-            />
-        </Footer>
-        
       </Layout>
     );
   }

@@ -10,13 +10,24 @@ contract DVideo {
     string hash;
     string title;
     address author;
+    uint rateTotal;
+    uint rateNumber;
   }
 
   event VideoUploaded(
     uint id,
     string hash,
     string title,
-    address author
+    address author,
+    uint rateTotal,
+    uint rateNumber
+  );
+
+  event VideoRateUpdated(
+    uint id,
+    string title,
+    uint rateTotal,
+    uint rateNumber
   );
 
   constructor() public {
@@ -32,10 +43,22 @@ contract DVideo {
 
     // Increment video id
     videoCount ++;
-
+    uint rateTotal = 0;
+    uint rateNumber = 0;
     // Add video to the contract
-    videos[videoCount] = Video(videoCount, _videoHash, _title, msg.sender);
+    videos[videoCount] = Video(videoCount, _videoHash, _title, msg.sender, rateTotal, rateNumber);
     // Trigger an event
-    emit VideoUploaded(videoCount, _videoHash, _title, msg.sender);
+    emit VideoUploaded(videoCount, _videoHash, _title, msg.sender, rateTotal, rateNumber);
+  }
+
+  function updateRate(uint _id, uint _rateTotal, uint _rateNumber, string memory _title) public {
+    require(_id >= 0);
+    require(_rateTotal >= 0);
+    require(_rateNumber >= 0);
+    videos[_id].rateTotal = _rateTotal;
+    videos[_id].rateNumber = _rateNumber;
+    emit VideoRateUpdated(_id, _title, _rateTotal, _rateNumber);
   }
 }
+
+  

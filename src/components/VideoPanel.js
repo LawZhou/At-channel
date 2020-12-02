@@ -1,5 +1,5 @@
 import React, { Component , useState} from 'react';
-import { Layout, Menu, Breadcrumb, Typography } from 'antd';
+import { Layout, Menu, Breadcrumb, Typography, Rate } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import {
   Form,
@@ -10,7 +10,6 @@ import {
   Slider,
   Button,
   Upload,
-  Rate,
   Checkbox,
   Row,
   Col,
@@ -22,17 +21,12 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Title, Paragraph, Text, Link } = Typography;
 
-const normFile = e => {
-  console.log('Upload event:', e);
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e && e.fileList;
-};
+
 
 function VideoPanel(props) {
-  const [videoTitle, setVideoTitle] = useState(null);
-  // render() {
+    const handleRate = (value) => {
+      props.updateRate(value)
+    }
     return (
       <div className="container-fluid text-monospace">
           <br></br>
@@ -48,12 +42,25 @@ function VideoPanel(props) {
                 >
                 </video>
               </div>
-            <h3><b><i>{props.currentTitle}</i></b></h3>
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              <Title level={1}>{props.currentTitle}</Title>
+              &nbsp;
+              &nbsp;
+              <span className="ant-rate-text">Rate this video: </span>
+              <Rate 
+                value={
+                    props.currentNumRate===0? 
+                    0:
+                    Math.floor(props.currentTotalRate/props.currentNumRate)
+                  } 
+                onChange={handleRate}
+                />
           </div>
         </div>
       </div>
     );
   }
-// }
 
 export default VideoPanel;
