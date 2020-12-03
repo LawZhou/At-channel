@@ -85,7 +85,7 @@ import 'antd/dist/antd.css';
         const commentsCount = await dcomment.methods.commentCount().call()
         this.setState({ commentsCount })
         
-        // Load videos, sort by newest
+        // Load comments, sort by newest
         for (var i=commentsCount; i>=1; i--) {
           const result = await dcomment.methods.comments(i).call()
           const comment = {

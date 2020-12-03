@@ -31,65 +31,8 @@ function Navbar(props) {
       ]}
       >
         
-          {/* <span style={{ fontSize:'xx-large', fontWeight: 'bold', color: 'white'}}>
-            @Channel
-         </span> */}
-
-      
-      {/* <Space style={{ float:'right'}}>
-            <span style={{ fontSize:'medium', color: 'white'}}>
-              <span id="account">{props.account}</span>
-            </span>
-            { props.account
-              ? <img
-                className='ml-2'
-                style={{width: 30, height: 30, borderRadius:'50%' }}
-                src={`data:image/png;base64,${new Identicon(props.account, 30).toString()}`}
-                alt=""
-              />
-              : <span></span>
-            }
-        </Space> */}
-        
       </PageHeader>
   );
 }
-
-// class Navbar extends Component {
-
-//   render() {
-//     // console.log(this.props)
-//     return (
-//       <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow text-monospace">
-//         <a
-//           className="navbar-brand col-sm-3 col-md-2 mr-0"
-//           href="http://www.dappuniversity.com/bootcamp"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <img src={dvideo} width="30" height="30" className="d-inline-block align-top" alt="" />
-//           &nbsp;DVide0
-//         </a>
-        // <ul className="navbar-nav px-3">
-        //   <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-        //     <small className="text-secondary">
-        //       <small id="account">{this.props.account}</small>
-        //     </small>
-        //     { this.props.account
-        //       ? <img
-        //         className='ml-2'
-        //         width='30'
-        //         height='30'
-        //         src={`data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`}
-        //         alt=""
-        //       />
-        //       : <span></span>
-        //     }
-        //   </li>
-        // </ul>
-//       </nav>
-//     );
-//   }
-// }
 
 export default Navbar;
