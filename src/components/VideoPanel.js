@@ -1,25 +1,8 @@
-import React, { Component , useState} from 'react';
-import { Layout, Menu, Breadcrumb, Typography, Rate } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import {
-  Form,
-  Select,
-  InputNumber,
-  Switch,
-  Radio,
-  Slider,
-  Button,
-  Upload,
-  Checkbox,
-  Row,
-  Col,
-} from 'antd';
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Typography, Rate } from 'antd';
 
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 
 
 

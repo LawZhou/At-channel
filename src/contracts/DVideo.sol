@@ -1,5 +1,4 @@
 pragma solidity ^0.5.0;
-// import "./DComment.sol" as DComment;
 
 contract DVideo {
   uint public videoCount = 0;
@@ -107,11 +106,6 @@ contract DVideo {
   function getComment(uint _videoId, uint _commentId) public returns (string memory text, address poster){
     require(_commentId>=0);
     return (videos[_videoId].videoComments[_commentId].text, videos[_videoId].videoComments[_commentId].poster);
-  }
-
-  function getCommentsCount(uint _videoId) public returns (uint commentsCount){
-    require(_videoId>=0);
-    return videos[_videoId].commentsCount;
   }
 }
 

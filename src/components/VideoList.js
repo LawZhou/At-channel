@@ -1,32 +1,12 @@
-import React, { Component , useState} from 'react';
-import { Layout, Menu, Breadcrumb, Typography, Tabs } from 'antd';
+import React, {useState} from 'react';
 import Uploader from './Uploader'
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
-import {
-  Form,
-  Select,
-  InputNumber,
-  Switch,
-  Radio,
-  Slider,
-  Button,
-  Upload,
-  Rate,
-  Checkbox,
-  Row,
-  Col,
-} from 'antd';
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+import {Form, Button, Tabs} from 'antd';
 
 const { TabPane } = Tabs;
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
 
 
 function VideoList(props) {
   const [videoTitle, setVideoTitle] = useState(null);
-  // render() {
     return (
       <div>
         
@@ -36,11 +16,6 @@ function VideoList(props) {
             style={{ backgroundColor:'#F4F5F7', maxHeight:'100%'}}
           >
             <TabPane tab="Upload Video" key='1'>
-                {/* <Uploader 
-                    uploadVideo={props.uploadVideo}
-                    captureFile={props.captureFile}>
-
-                </Uploader> */}
             <Form 
               onFinish={(event) => {
               const title = videoTitle.value
@@ -89,14 +64,8 @@ function VideoList(props) {
                 })}
             </TabPane>
           </Tabs>
-            
-
-            
-
-            
         </div>
     );
   }
-// }
 
 export default VideoList;

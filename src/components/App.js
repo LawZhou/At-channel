@@ -4,13 +4,11 @@ import Navbar from './Navbar'
 import VideoPanel from './VideoPanel'
 import VideoList from './VideoList'
 import Comments from './Comments'
-import CommentsHolder from './CommentsHolder'
 import Web3 from 'web3';
 import './App.css';
-import { DatePicker, message } from 'antd';
-import { Layout, Menu, Breadcrumb, Button } from 'antd';
+import { Layout } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 //Declare IPFS
 const ipfsClient = require('ipfs-http-client')

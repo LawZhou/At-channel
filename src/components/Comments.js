@@ -1,11 +1,8 @@
-import { Comment, Avatar, Form, Button, List, Input, Tooltip } from 'antd';
-import moment from 'moment';
-import React, { useState, useEffect } from 'react';
-import DComment from '../abis/DComment.json'
+import { Comment, Avatar, Form, Button, List, Input } from 'antd';
+import React from 'react';
 
 import Identicon from 'identicon.js';
 
-import Web3 from 'web3';
 import './App.css';
 import 'antd/dist/antd.css';
 

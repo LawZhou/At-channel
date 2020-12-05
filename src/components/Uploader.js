@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Upload, Button, message, Progress } from 'antd';
+import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 const dummyRequest = ({ file, onSuccess }) => {
@@ -47,7 +47,6 @@ class Uploader extends Component {
     render() {
         return (
           <div className="App">
-            {/* <h1>antd &lt;Upload/> as file selector</h1> */}
             <Upload
               beforeUpload={this.beforeUpload}
               fileList={this.state.selectedFileList}
