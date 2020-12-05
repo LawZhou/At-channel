@@ -33,7 +33,7 @@ function VideoList(props) {
           {/* Sider menu */}
             <Tabs 
             defaultActiveKey="2"
-            style={{ backgroundColor:'#F4F5F7', maxHeight:'100%' }}
+            style={{ backgroundColor:'#F4F5F7', maxHeight:'100%'}}
           >
             <TabPane tab="Upload Video" key='1'>
                 {/* <Uploader 
@@ -69,15 +69,15 @@ function VideoList(props) {
             </TabPane>
             <TabPane tab="Videos" key='2' style={{overflow: 'auto', maxHeight:"700px"}}>
                 {/* Video List */}
-                { props.videos.map((video, key) => {
+                { props.videos.map((state, key) => {
+                var video = state
                 return(
                     <div className="card mb-4 text-center bg-secondary mx-auto" style={{ width: '175px'}} key={key} >
                     <div className="card-title bg-dark">
                         <small className="text-white"><b>{video.title}</b></small>
                     </div>
                     <div>
-                        <p onClick={() => props.changeVideo(video.hash, video.title, video.rateTotal, 
-                            video.rateNumber, video.id)}>
+                        <p onClick={() => props.changeVideo(video)}>
                         <video
                             src={`https://ipfs.infura.io/ipfs/${video.hash}`}
                             style={{ width: '150px' }}

@@ -48,56 +48,54 @@ import 'antd/dist/antd.css';
     constructor(props) {
       super(props)
       this.state = {
+        dvideo: null,
         ipfs: null,
         account: null,
-        comments: [],
         submitting: false,
+        currentVideo: null,
         value: '',
+        comments: []
       }
-      this.loadBlockchainData()
+      // this.loadBlockchainData()
       this.postComment = this.postComment.bind(this)
     }
 
     resetState = () => {
       this.setState({
-        comments: [],
         submitting: false,
         value: '',
+        comments: [],
       })
     }
+
     componentDidUpdate(prevProps){
-      if(this.props.account !== prevProps.account){
+      if(this.props !== prevProps){
         this.setState({
           account: this.props.account,
-          ipfs: this.props.ipfs
-        })
+          ipfs: this.props.ipfs,
+          dvideo: this.props.dvideo,
+          currentVideo: this.props.currentVideo,
+        }, ()=> {
+          if (this.state.currentVideo && (this.props.currentVideo !== prevProps.currentVideo)){
+            this.resetState()
+            this.addCommentsToHolder()
+          }
+        }) 
       }
     }
-  
-    async loadBlockchainData() {
-      const web3 = window.web3
-      // Network ID
-      const networkId = await web3.eth.net.getId()
-      const networkData = DComment.networks[networkId]
-      if(networkData) {
-        const dcomment = new web3.eth.Contract(DComment.abi, networkData.address)
-        this.setState({ dcomment })
-        const commentsCount = await dcomment.methods.commentCount().call()
-        this.setState({ commentsCount })
-        
-        // Load comments, sort by newest
-        for (var i=commentsCount; i>=1; i--) {
-          const result = await dcomment.methods.comments(i).call()
+    
+    async addCommentsToHolder(){
+      const video = this.state.currentVideo
+      const dvideo = this.state.dvideo
+      for (var i=this.state.currentVideo.commentsCount-1; i >= 0; i--){
+          const result = await dvideo.methods.getComment(video.id, i).call()
           const comment = {
             author: result.poster,
             content: result.text,
           }
           this.setState({
             comments: [...this.state.comments, comment]
-          })
-        }
-      } else {
-        window.alert('DVideo contract not deployed to detected network.')
+          }) 
       }
     }
 
@@ -115,26 +113,13 @@ import 'antd/dist/antd.css';
       };
 
       postComment = () => {
-        const buf = Buffer.from(this.state.value, 'utf-8');
-        console.log("Submitting comment to IPFS...")
-
-        //adding file to the IPFS
-        this.state.ipfs.add(buf, (error, result) => {
-          console.log('IPFS result', result)
-          if(error) {
-            console.error(error)
-            return
-          }
-
-          this.state.dcomment.methods.postComment(result[0].hash, this.state.value)
-            .send({ from: this.state.account }).on('transactionHash', (hash) => {
-              this.setState({
-                submitting: false,
-                value: '',
-              });
-              this.resetState()
-              this.loadBlockchainData()
-          })
+        this.state.dvideo.methods.postComment(this.state.currentVideo.id, this.state.value)
+          .send({ from: this.state.account }).on('transactionHash', (hash) => {
+            // reset comment state
+            this.resetState()
+            // reset video state
+            this.props.resetState()
+            this.props.loadBlockchainData()
         })
       }
     
@@ -145,18 +130,19 @@ import 'antd/dist/antd.css';
       };
     
       render() {
-        const { comments, submitting, value } = this.state;
+        const { submitting, value } = this.state;
+        const comments = this.state.comments
+          
       return (
         <div className="container-fluid text-monospace">
         <div className="row">
           {/* Video */}
             <div className="col-sm-12">
             <Comment
-
-          avatar={
-            <Avatar
-              src={this.props.account? `data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`: ""}
-              alt={this.props.account? this.props.account: ""}
+              avatar={
+                <Avatar
+                  src={this.props.account? `data:image/png;base64,${new Identicon(this.props.account, 30).toString()}`: ""}
+                  alt={this.props.account? this.props.account: ""}
             />
           }
           content={
