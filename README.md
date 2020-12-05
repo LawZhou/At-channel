@@ -4,6 +4,8 @@ A decentralized platform for video publishing with comment posting and video rat
 
 ## Required Dependencies
 
+package.json:
+
 ```Json
     "@truffle/hdwallet-provider": "^1.1.0",
     "babel-polyfill": "6.26.0",
@@ -29,6 +31,8 @@ A decentralized platform for video publishing with comment posting and video rat
     "antd": "^4.8.5"
 ```
 
+Other dependencies:
+
 ```
     "solidity": ^0.5.0;
     Ganache version: Version 2.5.4 (2.5.4.1367)
@@ -43,7 +47,7 @@ MacOs Big Sur Version 11.0.1
 
 ## Setup Instuctions
 
-1. Install all the dependencies listed within package.json in the local node_modules folder.
+1. Install all the dependencies listed within **package.json** in the local **node_modules** folder.
 
 ``` Terminal
 yarn install
@@ -57,9 +61,9 @@ yarn install
 truffle migrate
 ```
 
-4. Add a custom RPC to **MetaMask** using url: <HTTP://127.0.0.1:7545> and Chain ID: 1337
+4. Add a custom RPC into **MetaMask** using url: <HTTP://127.0.0.1:7545> and Chain ID: 1337
 
-5. Import an account to **MetaMask** from **Ganache** using the provided private key.
+5. Import an account into **MetaMask** from **Ganache** using the provided private key.
 
 6. Start the server by enter
 
@@ -70,6 +74,8 @@ in the terminal.
 
 7. After the server successfully launched, enter <localhost:3000> in the browser and you can see the application.
 
-8. Try uploading videos, switching between videos, posting comments, rating the videos.
+## Running instruction
 
-9. Try switching account and repeat step 8.
+1. Try uploading videos, switching between videos, posting comments, rating the videos.
+
+2. Try switching your account and repeat step 2.
