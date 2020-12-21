@@ -36,7 +36,7 @@ Other dependencies:
 ```
     "solidity": ^0.5.0;
     Ganache version: Version 2.5.4 (2.5.4.1367)
-    yarn version: 1.22.10
+    yarn version: 6.14.8
 
 
 ```
@@ -50,7 +50,7 @@ MacOs Big Sur Version 11.0.1
 1. Install all the dependencies listed within **package.json** in the local **node_modules** folder.
 
 ``` Terminal
-yarn install
+npm install
 ```
 
 2. Open **Ganache** under Quickstart mode.
@@ -68,7 +68,7 @@ truffle migrate
 6. Start the server by enter
 
 ``` Terminal
-yarn start
+npm start
 ```
 in the terminal.
 
