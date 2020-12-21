@@ -36,7 +36,7 @@ Other dependencies:
 ```
     "solidity": ^0.5.0;
     Ganache version: Version 2.5.4 (2.5.4.1367)
-    yarn version: 6.14.8
+    npm version: 6.14.8
 
 
 ```
