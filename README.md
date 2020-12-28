@@ -37,6 +37,7 @@ Other dependencies:
     "solidity": ^0.5.0;
     Ganache version: Version 2.5.4 (2.5.4.1367)
     npm version: 6.14.8
+    lite-server: 2.3.0
 
 
 ```
